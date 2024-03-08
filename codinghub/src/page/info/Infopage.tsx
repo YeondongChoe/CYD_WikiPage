@@ -33,10 +33,7 @@ export const InfoPage = ({
 	const [title, setTitle] = useState<string>(propTitle);
 	const [content, setContent] = useState<string>(propContent);
 	const [path, setPath] = useState<string>(propPath);
-	console.log(seq);
-	console.log(title);
-	console.log(content);
-	console.log(path);
+	const [placeholder, setPlaceholder] = useState<string>("");
 
 	const setPage = useSetRecoilState(PageAtom);
 
@@ -71,19 +68,18 @@ export const InfoPage = ({
 	};
 	const saveWiki = (seq: string) => {
 		const pageIndex = wikiPages.findIndex((wiki) => wiki.seq === seq);
-		console.log(seq);
 
-		if (pageIndex !== -1) {
+		if (pageIndex !== -1 && title && content) {
 			setWikiPages((prevWikiPages) => {
 				const updatedWikiPages = [...prevWikiPages];
 				updatedWikiPages[pageIndex] = { seq, title, content, path };
 				return updatedWikiPages;
 			});
+			setIsEdit(false);
+		} else {
+			setPlaceholder("필수입력값 입니다.");
 		}
-		setIsEdit(false);
 	};
-
-	console.log(wikiPages);
 
 	useEffect(() => {
 		// location.state가 존재하면 해당 값을 초기값으로 설정
@@ -103,6 +99,7 @@ export const InfoPage = ({
 						<Input
 							value={title as string}
 							onChange={(e) => setTitle(e.target.value)}
+							placeholder={placeholder}
 						></Input>
 					) : (
 						<Label text={title as string} title />
@@ -126,6 +123,7 @@ export const InfoPage = ({
 						<Textarea
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
+							placeholder={placeholder}
 						></Textarea>
 					</ClickableWordWrapper>
 				) : (
