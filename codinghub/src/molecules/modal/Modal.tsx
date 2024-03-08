@@ -42,7 +42,6 @@ export const Modal = ({ setIsModalOpen, setCurrentWikiPages }: ModalProps) => {
 			// 기존 데이터를 변경하지 않고 새로운 배열을 생성
 			const updatedWikiPages = [...wikiPages, newPage];
 			setCurrentWikiPages((prev) => [...prev, newPage]);
-			console.log(updatedWikiPages);
 
 			// 모달 닫기
 			setIsModalOpen(false);

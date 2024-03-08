@@ -53,10 +53,6 @@ export const Main = () => {
 		setPage(1);
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(currentWikiPages);
-	// }, [currentWikiPages]);
-
 	return (
 		<Container>
 			{isModalOpen && (
